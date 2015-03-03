@@ -52,3 +52,33 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#Linux Files
+.*
+!.gitignore
+!.htaccess
+*~
+
+#Mac Files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+.Trash-1000/*
+
+#Vim
+.*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+db.sqlite
