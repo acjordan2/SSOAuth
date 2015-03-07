@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account</title>
+</head>
+<body>
+    <span>This is the account page</span>
+{% if current_user.is_authenticated() %}
+  Hi {{ current_user.username }}!
+{% endif %}
+<br />
+<a href="./account/logout">Logout</a>
+</body>
+</html>
