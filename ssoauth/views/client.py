@@ -15,7 +15,6 @@ def addClient():
         client_description = "OAuthclient Used for testing purposes",
         _redirect_uris = ' '.join([
             'http://localhost:8000/authorized',
-            'http://127.0.0.1:8000/authorized'
         ]),
         _default_scopes='email',
         user_id = current_user.id

@@ -1,4 +1,5 @@
 import redis
+from datetime import datetime, timedelta
 from flask import Flask
 from flask import render_template, redirect, request, jsonify
 from flask.ext.login import login_required, current_user
@@ -74,7 +75,7 @@ def save_token(token, request, *args, **kwargs):
         access_token=token['access_token'],
         refresh_token=token['refresh_token'],
         token_type=token['token_type'],
-        _scopes=token['scopes'],
+        _scopes=token['scope'],
         expires=expires,
         client_id=request.client.client_id,
         user_id=request.user.id
@@ -84,7 +85,7 @@ def save_token(token, request, *args, **kwargs):
     db.session.commit()
     return tok
 
-@app.route('/oauth/token')
+@app.route('/oauth/token', methods=['GET', 'POST'])
 @provider.token_handler
 def access_token():
     return None
@@ -97,11 +98,11 @@ def authorize(*args, **kwargs):
         client_id = kwargs.get('client_id')
         client = Client.query.filter_by(client_id=client_id).first()
         kwargs['client'] = client
-        kwargs['user'] = user
+        kwargs['user'] = current_user
         return render_template('authorize.html', **kwargs)
     
-    confirm = reqeust.form.get('confirm', 'no')
-    return confirm
+    confirm = request.form.get('confirm', 'no')
+    return confirm == 'yes'
 
 @app.route('/api/me')
 @provider.require_oauth()
